@@ -1,0 +1,21 @@
+{
+  "name": "text-game-v2",
+  "version": "1.0.0",
+  "description": "A text based strategy game using firebase and express",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "Firebase",
+    "Strategy",
+    "Game",
+    "express"
+  ],
+  "author": "Karuvathil Akshay Vijaykumar",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
