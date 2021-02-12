@@ -14,36 +14,21 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 var database = firebase.database();
-var dataRef = database.ref('data');
+//var dataRef = database.ref('data');
 var userRef = database.ref('users');
-//
-//var data = {
-//	username: 'Akshay',
-//	password: "@k@"
-//}
-//dataRef.push(data);
+var dataToBeAdded = {
+	specialId: '5Z1BtZZhiuRyxs1yvPRZ2b4B2u13'
+};
+userRef.push(dataToBeAdded);
 
 var body = document.getElementById('body');
 body.innerHTML = '<button onclick="signIn();">Sign in</button><script src = "sketch.js" defer></script>';
 
 //signIn();
 
-function signIn() {
-	//	var username = prompt('Usename: ');
-	//	var password = prompt('Password: ');
-	//	var signedDataStructure = {
-	//		username: username,
-	//		password: password
-	//	}
-	//	var queried = userRef.orderByChild("password").equalTo(password).on('child_added', function (snapshot) {
-	//		var filter1 = snapshot.val();
-	//		console.log(filter1);
-	//
-	//	});
-	//	//console.log(queried);
-	var provider = new firebase.auth.GoogleAuthProvider();
-	//firebase.auth().useDeviceLanguage();
 
+function signIn() {
+	var provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth()
 		.signInWithPopup(provider)
 		.then((result) => {
@@ -82,16 +67,6 @@ function signOut() {
 		console.log(error);
 	});
 }
-//
-//firebase.auth.onStateChanged(user => {
-//	if (user) {
-//
-//	} else {
-//		SignedIn.hidden = false;
-//		SignedOut.hidden = true;
-//		userDetails.innerHTML = `Name:${user.displayName}<br><script src = "sketch.js" defer></script>`;
-//	}
-//});
 firebase.auth().onAuthStateChanged((user) => {
 	if (user) {
 		// User is signed in, see docs for a list of available properties
@@ -99,6 +74,19 @@ firebase.auth().onAuthStateChanged((user) => {
 		var uid = user.uid;
 		// ...
 		document.getElementById('body').innerHTML = `User id: ${uid}<br>Display name: ${user.displayName}<br>Email: ${user.email}<br><button onclick = "signOut();">Sign out</button><br><script src = "sketch.js" defer></script>`;
+		//checking if user exists
+		var refData = firebase.database().ref('users');
+		console.log(refData);
+		refData.orderByChild('specialId').equalTo(uid).on('child_added', function (snapshot) {
+			if (snapshot != null) {
+				console.log(snapshot);
+				console.log('snapshot');
+				console.log(snapshot.key);
+				console.log(snapshot.val());
+			}
+
+
+		});
 
 	} else {
 		// User is signed out
@@ -106,7 +94,3 @@ firebase.auth().onAuthStateChanged((user) => {
 		body.innerHTML = '<button onclick="signIn();">Sign in</button><script src = "sketch.js" defer></script>';
 	}
 });
-
-
-
-//console.log(firebase);
