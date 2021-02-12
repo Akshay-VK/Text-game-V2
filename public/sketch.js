@@ -24,7 +24,7 @@ var userRef = database.ref('users');
 //dataRef.push(data);
 
 var body = document.getElementById('body');
-body.innerHTML = '<button onclick="signIn();">Sign in</button><script src = "sketch.js" defer></script>'
+body.innerHTML = '<button onclick="signIn();">Sign in</button><script src = "sketch.js" defer></script>';
 
 //signIn();
 
@@ -67,9 +67,45 @@ function signIn() {
 			// ...
 		}).then((user) => {
 			console.log(user.uid, user.displayName, user.email);
+		}).catch((err) => {
+			console.log(err);
 		});
 
 }
+
+function signOut() {
+	firebase.auth().signOut().then(() => {
+		// Sign-out successful.
+		console.log('signed out.');
+	}).catch((error) => {
+		// An error happened.
+		console.log(error);
+	});
+}
+//
+//firebase.auth.onStateChanged(user => {
+//	if (user) {
+//
+//	} else {
+//		SignedIn.hidden = false;
+//		SignedOut.hidden = true;
+//		userDetails.innerHTML = `Name:${user.displayName}<br><script src = "sketch.js" defer></script>`;
+//	}
+//});
+firebase.auth().onAuthStateChanged((user) => {
+	if (user) {
+		// User is signed in, see docs for a list of available properties
+		// https://firebase.google.com/docs/reference/js/firebase.User
+		var uid = user.uid;
+		// ...
+		document.getElementById('body').innerHTML = `User id: ${uid}<br>Display name: ${user.displayName}<br>Email: ${user.email}<br><button onclick = "signOut();">Sign out</button><br><script src = "sketch.js" defer></script>`;
+
+	} else {
+		// User is signed out
+		// ...
+		body.innerHTML = '<button onclick="signIn();">Sign in</button><script src = "sketch.js" defer></script>';
+	}
+});
 
 
 
