@@ -16,8 +16,18 @@
 
 </head>
 
-<body id='body'>
+<body>
+	<div id = 'signedOut'>
+		<button onclick="defSignIn();">Sign In</button>
+		<div id = 'ifError'>
 
+		</div>
+	</div>
+	<div id = 'signedIn' hidden="true">
+		<div id = 'user-data'></div>
+		<button onclick = "firebaseUser.signOut();">Sign out</button>
+	</div>
+	<script src = 'firebase-user.js'></script>
 	<script src='sketch.js' defer></script>
 </body>
 
