@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Text game</title>
 	<script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-app.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-database.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/8.2.6/firebase-auth.js"></script>
@@ -19,6 +19,7 @@
 <body>
 	<div id = 'signedOut'>
 		<button onclick="defSignIn();">Sign In</button>
+		<button onclick="defSignUp();">Sign up</button>		
 		<div id = 'ifError'>
 
 		</div>
@@ -26,6 +27,7 @@
 	<div id = 'signedIn' hidden="true">
 		<div id = 'user-data'></div>
 		<button onclick = "firebaseUser.signOut();">Sign out</button>
+		<img id = 'user-image' src = ''/>
 	</div>
 	<script src = 'firebase-user.js'></script>
 	<script src='sketch.js' defer></script>
