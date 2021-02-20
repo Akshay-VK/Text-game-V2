@@ -204,6 +204,11 @@ function defSignIn(){
 
 					clientData = snapshotData[key];
 
+					fetch(`/user-signed-in/${snapshotData[key].username}`)
+						.then(response => response.json())
+						.then((data)=>{
+							console.log(data);
+						});
 					
 				}
 			})
