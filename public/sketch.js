@@ -61,7 +61,7 @@ function defSignUp(){
 			// The signed-in user info.
 			var user = result.user;
 			// ...
-			console.log('step 1: sign in complete..');
+			//console.log('step 1: sign in complete..');
 			return user;
 		}).catch((error) => {
 			// Handle Errors here.
@@ -76,14 +76,14 @@ function defSignUp(){
 		}).then((user) => {
 			//Check if account with signed in users userId exists
 			var userId = user.uid;
-			console.log('step 2: uid:'+userId);
+			//console.log('step 2: uid:'+userId);
 
 			//var refData = firebase.database().ref('users');
 
 			firebase.database().ref('users').orderByChild('specialId').equalTo(userId).once('value', function (snapshot) {
 				
 				if(!snapshot.exists()){
-					console.log('atleast reaching here?');
+					//console.log('atleast reaching here?');
 					var accDataStruct = {
 						email: user.email,
 						specialId: userId,
@@ -94,36 +94,36 @@ function defSignUp(){
 							oil:0,
 						}
 					};
-					console.log('step 3: data structure: '+accDataStruct);
+					//console.log('step 3: data structure: '+accDataStruct);
 					firebase.database().ref('users').push(accDataStruct);
 					firebase.auth().signOut().then(() => {
 						// Sign-out successful.
-						console.log('signed out.');
+						//console.log('signed out.');
 					}).catch((error2) => {
 						// An error happened.
-						console.log(error2);
+						//console.log(error2);
 					});
 				}else{
 					// console.log(snapshot);
 					// console.log('snapshot');
 					// console.log(snapshot.key);
-					console.log(snapshot.val());
+					//console.log(snapshot.val());
 
 					alert('Account already exists');
-					console.log('step 3: <terminated> account exists');
+					//console.log('step 3: <terminated> account exists');
 					firebase.auth().signOut().then(() => {
 						// Sign-out successful.
-						console.log('signed out.');
+						//console.log('signed out.');
 					}).catch((error2) => {
 						// An error happened.
-						console.log(error2);
+						//console.log(error2);
 					});
 				}
-				console.log('here');
+				//console.log('here');
 	
 			});
 		}).catch((err) => {
-			console.log(err);
+			//console.log(err);
 		});
 }
 
@@ -176,40 +176,49 @@ function defSignIn(){
 				if(!snapshot.exists()){
 					firebase.auth().signOut().then(() => {
 						// Sign-out successful.
-						console.log('signed out.');
+						//console.log('signed out.');
 					}).catch((error2) => {
 						// An error happened.
-						console.log(error2);
+						//console.log(error2);
 					});
 					alert('No account found. Click "sign up" to ... well, sign up.');
 
 				}else{
-					console.log(snapshot.val());
+					//console.log(snapshot.val());
 					var snapshotData = snapshot.val();
+
+
 					document.getElementById('signedOut').hidden = true;
 					document.getElementById('signedIn').hidden = false;					
+
 					var key = Object.keys(snapshotData)[0];
+
 					clientData.username = snapshotData[key].username;
 					clientData.email = snapshotData[key].email;					
 					clientData.image = snapshotData[key].image;
+
 					document.getElementById('user-image').src= snapshotData[key].image;
+
 					clientData.iron = snapshotData[key].gameData.iron;
 					clientData.oil = snapshotData[key].gameData.oil;				
+
 					clientData = snapshotData[key];
+
+					
 				}
 			})
 		}).catch((err) => {
-			console.log(err);
+			//console.log(err);
 		});
 }
 
 function signOut(){
 	firebase.auth().signOut().then(() => {
 		// Sign-out successful.
-		console.log('signed out.');
+		//console.log('signed out.');
 	}).catch((error2) => {
 		// An error happened.
-		console.log(error2);
+		//console.log(error2);
 	});
 }
 
