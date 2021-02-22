@@ -204,7 +204,7 @@ function defSignIn(){
 
 					clientData = snapshotData[key];
 
-					fetch(`/user-signed-in/${snapshotData[key].username}`)
+					fetch(`/user-signed-in/${snapshotData[key].username}/${snapshotData[key].email}`)
 						.then(response => response.json())
 						.then((data)=>{
 							console.log(data);
